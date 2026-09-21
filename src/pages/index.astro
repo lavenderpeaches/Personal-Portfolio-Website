@@ -1,0 +1,130 @@
+  ---
+  // src/pages/index.astro
+  import BaseLayout from '../layouts/BaseLayout.astro';
+  import ProfileCard from '../components/ProfileCard.astro';
+  import AboutSection from '../components/About.astro';
+  import ThemeToggle from '../components/ToggleTheme.astro';
+  import WorkExp from '../components/WorkExp.astro';
+  import Projects from '../components/Projects.astro';
+  import TechStack from '../components/TechStack.astro';
+  import CoolThing from '../components/CoolThing.astro';
+  import Interests from '../components/Interests.astro';
+  import ContactPage from '../components/ContactPage.astro';
+  ---
+
+  <BaseLayout title="Deepali | Portfolio">
+    <main class="page-container">
+      <div class="row-one">
+        <div class="profile"><ProfileCard /></div>
+        <div class="intro"><AboutSection /></div>
+        <div class="toggle"><ThemeToggle /></div>
+      </div>
+
+      <div class="row-two">
+        <div class="workex"><WorkExp /></div>
+        <div class="projects"><Projects /></div>
+      </div>
+      <div class="row-three">
+        <div class="techstack"><TechStack /></div>
+        <div class="coolthing"><CoolThing /></div>
+        <div class="interest"><Interests /></div>
+      </div>
+      <ContactPage />
+    </main>
+  </BaseLayout>
+
+  <style>
+    .page-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Row One Layout */
+    .row-one {
+      display: flex;
+      align-items: stretch;
+      gap: 1.5rem;
+      width: 100%;
+    }
+
+    .profile {
+      flex: 0 0 auto;
+      width: clamp(280px, 30vw, 360px);
+    }
+
+    .intro {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Row Two Layout (Side-by-Side with Fluid Viewports) */
+    .row-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .workex,
+    .projects {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 968px) {
+      .row-one {
+        flex-direction: column;
+      }
+
+      .profile,
+      .intro {
+        width: 100%;
+      }
+
+      .toggle {
+        order: -1;
+        align-self: flex-end;
+      }
+
+      .row-two {
+          display: grid;
+          grid-template-columns: 1fr 2fr; /* Gives Projects double space for side-by-side cards */
+          gap: 1.5rem;
+          align-items: stretch;
+          width: 100%;
+      }
+    }
+    /* Row Three Layout (3 equal columns, equal height) */
+    .row-three {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .techstack,
+    .coolthing,
+    .interest {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-width: 0;
+    }
+  </style>

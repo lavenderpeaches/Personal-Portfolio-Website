@@ -1,0 +1,198 @@
+---
+import profilePic from '../assets/Profile Picture.jpg';
+import { Image } from 'astro:assets';
+---
+<div class="profileCard">
+    <div class="basics">
+        <div class="avatar-wrapper">
+            <div class="glow-ring"></div>
+            <Image
+              src={profilePic}
+              alt="Deepali's profile picture"
+              class="avatar"
+            />
+        </div>
+        <h3 class="name">Deepali</h3>
+    </div>
+
+  <div class="info">
+    <p class="detail dev-title">20-something full stack dev</p>
+    
+    <p class="detail location">
+      <!-- MapPin Icon -->
+      <svg class="icon location-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <span>India</span>
+    </p>
+
+    <p class="detail time">
+      <!-- Clock Icon -->
+      <svg class="icon clock-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>APAC, <span id="local-time">--:--:--</span></span>
+    </p>
+  </div>
+</div>
+
+<style>
+  .profileCard {
+    display: flex;
+    align-items: stretch; /* Stretches both sides to equal height */
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, rgba(30, 20, 45, 0.65), rgba(15, 15, 20, 0.85));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 24px;
+    color: var(--text);
+    height: 100%;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .basics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Pushes name down to match bottom line */
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .avatar-wrapper {
+    position: relative;
+    width: clamp(80px, 6vw, 120px);
+    height: clamp(80px, 6vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .glow-ring {
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      #9333ea,
+      #c084fc,
+      #60a5fa,
+      #a855f7,
+      #9333ea
+    );
+    animation: spin 6s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .avatar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 1;
+    border: 3px solid #0f0f14;
+  }
+
+  .name {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    line-height: 1;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: space-between; /* Equal vertical spacing */
+    text-align: left;
+    gap: 0.5rem;
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .detail {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .dev-title {
+    font-weight: 600;
+    color: #e2e8f0; 
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  .location, .time {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .location {
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: 0.95rem;
+  }
+
+  .location-icon {
+    color: #ffffff;
+  }
+
+  .time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.85rem;
+    color: #c084fc;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .clock-icon {
+    color: #c084fc;
+  }
+
+  .time #local-time {
+    font-family: inherit;
+    font-variant-numeric: tabular-nums;
+    color: #c084fc;
+    font-weight: 700;
+  }
+</style>
+
+<script>
+  const timeEl = document.getElementById('local-time');
+
+  function updateTime() {
+    if (!timeEl) return;
+    const now = new Date().toLocaleTimeString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+    timeEl.textContent = now;
+  }
+
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>

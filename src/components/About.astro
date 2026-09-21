@@ -1,0 +1,53 @@
+---
+// src/components/AboutSection.astro
+---
+
+<div class="aboutCard">
+  <p>
+    Hello, I'm <strong class="name-text">Deepali</strong> and I mostly go around by the name <span class="accent-text">lavenderpeaches</span>.
+    I like to code and build things in general and have been programming
+    since the fall of 2022. I'm always open for having meaningful and
+    fun conversations. If you check out my projects, don't forget to
+    leave feedback—it's always dearly appreciated. Currently, I'm
+    working as a <span class="subtle-text">backend dev</span> at a startup and looking for opportunities
+    to grow.
+  </p>
+</div>
+
+<style>
+  .aboutCard {
+    display: flex;
+    align-items: center;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, rgba(30, 20, 45, 0.65), rgba(15, 15, 20, 0.85));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 24px;
+    color: var(--text);
+    height: 100%;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .aboutCard p {
+    margin: 0;
+    line-height: 1.65;
+    font-size: 0.95rem;
+    color: #e2e8f0;
+  }
+
+  .name-text {
+    color: #ffffff;
+    font-weight: 700;
+  }
+
+  .accent-text {
+    color: #c084fc;
+    font-weight: 600;
+  }
+
+  .subtle-text {
+    color: #ffffff;
+    font-weight: 600;
+  }
+</style>

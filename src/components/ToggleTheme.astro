@@ -1,0 +1,87 @@
+---
+// src/components/ThemeToggle.astro
+---
+
+<button id="theme-toggle" class="toggleBtn" aria-label="Toggle dark/light theme">
+  <svg class="icon sun" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="5" fill="currentColor" />
+    <line x1="12" y1="1" x2="12" y2="3" />
+    <line x1="12" y1="21" x2="12" y2="23" />
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+    <line x1="1" y1="12" x2="3" y2="12" />
+    <line x1="21" y1="12" x2="23" y2="12" />
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+  </svg>
+
+  <svg class="icon moon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+  </svg>
+</button>
+
+<style>
+  .toggleBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    background: linear-gradient(135deg, rgba(30, 20, 45, 0.65), rgba(15, 15, 20, 0.85));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: #c084fc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+
+  .toggleBtn:hover {
+    border-color: rgba(168, 85, 247, 0.5);
+    background: linear-gradient(135deg, rgba(45, 30, 65, 0.75), rgba(25, 25, 35, 0.9));
+    color: #ffffff;
+  }
+
+  .toggleBtn:active {
+    transform: scale(0.95);
+  }
+
+  .icon {
+    display: none;
+    transition: transform 0.3s ease;
+  }
+
+  .toggleBtn:hover .icon {
+    transform: rotate(12deg);
+  }
+
+  /* Sun icon in dark mode */
+  :global(html.dark) .toggleBtn .sun {
+    display: block;
+    color: #fbbf24;
+  }
+
+  /* Moon icon in light mode */
+  :global(html:not(.dark)) .toggleBtn .moon {
+    display: block;
+    color: #c084fc;
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    root.classList.add('dark');
+  }
+
+  btn?.addEventListener('click', () => {
+    root.classList.toggle('dark');
+    localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+  });
+</script>

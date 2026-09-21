@@ -1,0 +1,195 @@
+---
+// src/components/CoolThing.astro
+---
+
+<div class="coolCard">
+  <div class="card-header">
+    <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="13" r="8" />
+      <path d="M12 9v4l2 2" />
+      <path d="M9 2h6" />
+    </svg>
+    <span class="header-title">Time Here</span>
+  </div>
+
+  <div class="content">
+    <div class="timer" role="timer" aria-live="off">
+      <div class="unit">
+        <span class="digits" id="hours">00</span>
+        <span class="label">hrs</span>
+      </div>
+      <span class="colon">:</span>
+      <div class="unit">
+        <span class="digits" id="minutes">00</span>
+        <span class="label">min</span>
+      </div>
+      <span class="colon">:</span>
+      <div class="unit">
+        <span class="digits" id="seconds">00</span>
+        <span class="label">sec</span>
+      </div>
+    </div>
+
+    <p class="message" id="timer-message">You just arrived. Welcome!</p>
+  </div>
+</div>
+
+<script>
+  const start = Date.now();
+
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+  const messageEl = document.getElementById('timer-message');
+
+  const pad = (n: number) => String(n).padStart(2, '0');
+
+  const messages: [number, string][] = [
+    [0, 'You just arrived. Welcome!'],
+    [10, 'Still here? Nice, make yourself comfortable.'],
+    [30, 'Half a minute in. You must like scrolling.'],
+    [60, 'A full minute! You are officially a visitor.'],
+    [180, 'Three minutes. Have you checked the Minecraft section?'],
+    [300, 'Five minutes?! Just hire me already ;-;'],
+  ];
+
+  function tick() {
+    // Derive from timestamps so it stays accurate even if the tab is throttled
+    const elapsed = Math.floor((Date.now() - start) / 1000);
+
+    const h = Math.floor(elapsed / 3600);
+    const m = Math.floor((elapsed % 3600) / 60);
+    const s = elapsed % 60;
+
+    if (hoursEl) hoursEl.textContent = pad(h);
+    if (minutesEl) minutesEl.textContent = pad(m);
+    if (secondsEl) secondsEl.textContent = pad(s);
+
+    if (messageEl) {
+      const current = [...messages].reverse().find(([t]) => elapsed >= t);
+      if (current && messageEl.textContent !== current[1]) {
+        messageEl.textContent = current[1];
+      }
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+<style>
+  .coolCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1.25rem;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, rgba(30, 20, 45, 0.65), rgba(15, 15, 20, 0.85));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 24px;
+    color: var(--text, #ffffff);
+    height: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+
+  .coolCard:hover {
+    border-color: rgba(168, 85, 247, 0.4);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #c084fc;
+  }
+
+  .header-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .header-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .timer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .digits {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums; /* stops digits from jittering as they change */
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: #f5f3ff;
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    border-radius: 12px;
+    padding: 0.35rem 0.65rem;
+    min-width: 2.6ch;
+    text-align: center;
+    box-shadow: 0 0 18px rgba(168, 85, 247, 0.15);
+  }
+
+  .label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #94a3b8;
+  }
+
+  .colon {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #c084fc;
+    line-height: 1;
+    padding-top: 0.55rem;
+    animation: blink 1s steps(2, start) infinite;
+  }
+
+  @keyframes blink {
+    to {
+      opacity: 0.25;
+    }
+  }
+
+  .message {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #94a3b8;
+    min-height: 2.5em; /* avoids layout shift when the message text changes */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .colon {
+      animation: none;
+    }
+  }
+</style>

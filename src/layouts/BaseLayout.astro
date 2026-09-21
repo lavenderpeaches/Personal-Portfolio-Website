@@ -1,0 +1,60 @@
+---
+// src/layouts/BaseLayout.astro
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Deepali's portfolio" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script is:inline>
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #f4f4f4;
+    --bg-card: #d9d9d9;
+    --text: #111111;
+    --text-muted: #555555;
+    --accent: #6c5ce7;
+  }
+
+  html.dark {
+    --bg: #111111;
+    --bg-card: #1e1e1e;
+    --text: #f4f4f4;
+    --text-muted: #aaaaaa;
+    --accent: #a29bfe;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+</style>    

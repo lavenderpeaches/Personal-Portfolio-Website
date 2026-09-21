@@ -1,0 +1,151 @@
+---
+// src/components/WorkExperience.astro
+---
+
+<div class="experienceCard">
+  <div class="card-header">
+    <div class="role-info">
+      <h3 class="role">Backend Developer</h3>
+      <span class="company">Stealth Startup</span>
+    </div>
+
+    <div class="meta-details">
+      <span class="meta-item date">
+        <!-- Calendar Icon -->
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/>
+          <line x1="16" x2="16" y1="2" y2="6"/>
+          <line x1="8" x2="8" y1="2" y2="6"/>
+          <line x1="3" x2="21" y1="10" y2="10"/>
+        </svg>
+        Jan 2026 – Present
+      </span>
+      <span class="meta-item location">
+        <!-- MapPin Icon -->
+        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Delhi, India
+      </span>
+    </div>
+  </div>
+
+  <ul class="highlights">
+    <li>
+      Architecting and scaling backend services built with <span class="badge">Python</span> and <span class="badge">Django</span>.
+    </li>
+    <li>
+      Designing optimized database schemas and high-throughput RESTful endpoints with cursor/offset pagination.
+    </li>
+    <li>
+      Built an in-house <span class="accent-text">Service Manager</span> to automate Docker container lifecycle management and orchestration.
+    </li>
+  </ul>
+</div>
+
+<style>
+  .experienceCard {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.75rem 2rem;
+    background: linear-gradient(135deg, rgba(30, 20, 45, 0.65), rgba(15, 15, 20, 0.85));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    border-radius: 24px;
+    color: var(--text);
+    height: 100%;
+    transition: border-color 0.3s ease, background 0.2s ease;
+  }
+
+  .experienceCard:hover {
+    border-color: rgba(168, 85, 247, 0.4);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .role-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .role {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .company {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #c084fc;
+  }
+
+  .meta-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    color: #c084fc;
+    flex-shrink: 0;
+  }
+
+  .highlights {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .highlights li {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+  }
+
+  .highlights li::marker {
+    color: #c084fc;
+  }
+
+  .badge {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: rgba(192, 132, 252, 0.12);
+    color: #c084fc;
+    border: 1px solid rgba(192, 132, 252, 0.3);
+    padding: 0.1rem 0.45rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .accent-text {
+    color: #ffffff;
+    font-weight: 600;
+  }
+</style>
