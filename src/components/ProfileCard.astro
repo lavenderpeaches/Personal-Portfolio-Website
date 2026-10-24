@@ -3,196 +3,92 @@ import profilePic from '../assets/Profile Picture.jpg';
 import { Image } from 'astro:assets';
 ---
 <div class="profileCard">
-    <div class="basics">
-        <div class="avatar-wrapper">
-            <div class="glow-ring"></div>
-            <Image
-              src={profilePic}
-              alt="Deepali's profile picture"
-              class="avatar"
-            />
-        </div>
-        <h3 class="name">Deepali</h3>
+  <span class="card-spark" aria-hidden="true">✦</span>
+  <div class="profile-heading">
+    <div class="avatar-wrapper">
+      <div class="glow-ring"></div>
+      <Image src={profilePic} alt="Deepali's profile picture" class="avatar" />
+      <span class="avatar-status" aria-label="Available"></span>
     </div>
-
-  <div class="info">
-    <p class="detail dev-title">20-something full stack dev</p>
-    
-    <p class="detail location">
-      <!-- MapPin Icon -->
-      <svg class="icon location-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-        <circle cx="12" cy="10" r="3"/>
-      </svg>
-      <span>India</span>
-    </p>
-
-    <p class="detail time">
-      <!-- Clock Icon -->
-      <svg class="icon clock-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <polyline points="12 6 12 12 16 14"/>
-      </svg>
-      <span>APAC, <span id="local-time">--:--:--</span></span>
-    </p>
+    <div class="identity">
+      <span class="micro-label">A LITTLE ABOUT ME</span>
+      <h3 class="name">Deepali</h3>
+      <p class="dev-title">20-something full stack dev</p>
+    </div>
   </div>
+
+  <div class="profile-details">
+    <div class="meta-row">
+      <span class="meta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      </span>
+      <span class="meta-copy"><span class="meta-label">BASED IN</span><strong class="meta-value">India</strong></span>
+      <span class="meta-note">🇮🇳</span>
+    </div>
+    <div class="meta-row">
+      <span class="meta-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      </span>
+      <span class="meta-copy"><span class="meta-label">LOCAL TIME · APAC</span><strong class="meta-value time-value" id="local-time">--:--:--</strong></span>
+      <span class="live-pulse" aria-label="Live local time"></span>
+    </div>
+  </div>
+
+  <div class="profile-footer"><span class="footer-spark">✧</span> Building while zombie-scrolling</div>
 </div>
 
 <style>
   .profileCard {
-    display: flex;
-    align-items: stretch; /* Stretches both sides to equal height */
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.75rem 2rem;
-    background: linear-gradient(135deg, rgba(30, 20, 45, 0.65), rgba(15, 15, 20, 0.85));
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(168, 85, 247, 0.2);
-    border-radius: 24px;
-    color: var(--text);
-    height: 100%;
-    transition: background 0.2s ease, color 0.2s ease;
+    position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:center;
+    gap:1.1rem; padding:1.35rem; height:100%; box-sizing:border-box;
+    color:var(--text); background:linear-gradient(145deg,#fff 0%,#fff5f9 100%);
+    border:1px solid #f1dce5; border-radius:15px;
+    box-shadow:0 8px 22px #aa55700d; transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
   }
-
-  .basics {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between; /* Pushes name down to match bottom line */
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .avatar-wrapper {
-    position: relative;
-    width: clamp(80px, 6vw, 120px);
-    height: clamp(80px, 6vw, 120px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .glow-ring {
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    background: conic-gradient(
-      from 0deg,
-      #9333ea,
-      #c084fc,
-      #60a5fa,
-      #a855f7,
-      #9333ea
-    );
-    animation: spin 6s linear infinite;
-    z-index: 0;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  .avatar {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    z-index: 1;
-    border: 3px solid #0f0f14;
-  }
-
-  .name {
-    margin: 0;
-    font-size: 1.35rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-    line-height: 1;
-  }
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; 
-    justify-content: space-between; /* Equal vertical spacing */
-    text-align: left;
-    gap: 0.5rem;
-    flex-grow: 1;
-    min-width: 0;
-  }
-
-  .detail {
-    margin: 0;
-    font-size: 0.95rem;
-  }
-
-  .dev-title {
-    font-weight: 600;
-    color: #e2e8f0; 
-    font-size: 1rem;
-    line-height: 1.35;
-  }
-
-  .location, .time {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-  }
-
-  .icon {
-    width: 1rem;
-    height: 1rem;
-    flex-shrink: 0;
-  }
-
-  .location {
-    color: #ffffff;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    font-size: 0.95rem;
-  }
-
-  .location-icon {
-    color: #ffffff;
-  }
-
-  .time {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 0.85rem;
-    color: #c084fc;
-    white-space: nowrap;
-    line-height: 1;
-  }
-
-  .clock-icon {
-    color: #c084fc;
-  }
-
-  .time #local-time {
-    font-family: inherit;
-    font-variant-numeric: tabular-nums;
-    color: #c084fc;
-    font-weight: 700;
-  }
+  .profileCard:hover { transform:translateY(-2px); border-color:#eab7ca; box-shadow:0 12px 28px #aa557018; }
+  :global(html.dark) .profileCard { background:linear-gradient(145deg,#352833 0%,#302331 100%); border-color:#50384b; }
+  :global(html.dark) .profileCard:hover { border-color:#82516b; }
+  .card-spark { position:absolute; top:13px; right:15px; color:#e7a4ba; font-size:16px; opacity:.8; }
+  .profile-heading { display:flex; align-items:center; gap:1rem; min-width:0; }
+  .avatar-wrapper { position:relative; flex:0 0 76px; width:76px; height:76px; display:grid; place-items:center; }
+  .glow-ring { position:absolute; inset:-3px; border-radius:50%; background:conic-gradient(from 25deg,#f4c3d3,#e879a3,#f5d7e2,#d98bb0,#f4c3d3); animation:spin 12s linear infinite; }
+  .avatar { position:relative; width:100%; height:100%; border-radius:50%; object-fit:cover; z-index:1; border:3px solid #fff; }
+  :global(html.dark) .avatar { border-color:#352833; }
+  .avatar-status { position:absolute; z-index:2; right:1px; bottom:2px; width:13px; height:13px; border:3px solid #fff; border-radius:50%; background:#77c99d; }
+  :global(html.dark) .avatar-status { border-color:#352833; }
+  .identity { min-width:0; }
+  .micro-label,.meta-label { display:block; color:#b596a7; font-size:.56rem; font-weight:800; letter-spacing:.13em; }
+  .name { margin:4px 0 3px; color:#503b4b; font-size:1.48rem; line-height:1.05; font-weight:800; letter-spacing:-.045em; }
+  :global(html.dark) .name { color:#fff1f7; }
+  .dev-title { margin:0; color:#9b7d8d; font-size:.76rem; font-weight:550; }
+  .profile-details { display:grid; gap:7px; }
+  .meta-row { display:flex; align-items:center; gap:10px; min-height:46px; padding:7px 10px; border:1px solid #f2e4ea; border-radius:10px; background:#fffafd; }
+  :global(html.dark) .meta-row { background:#2b222e; border-color:#493747; }
+  .meta-icon { display:grid; place-items:center; flex:0 0 29px; width:29px; height:29px; border-radius:8px; color:#bf6489; background:#ffedf3; }
+  :global(html.dark) .meta-icon { color:#ffc0d4; background:#482b3d; }
+  .meta-icon svg { width:15px; height:15px; }
+  .meta-copy { display:flex; flex:1; flex-direction:column; gap:2px; }
+  .meta-label { font-size:.52rem; letter-spacing:.1em; }
+  .meta-value { color:#604a59; font-size:.78rem; font-weight:700; }
+  :global(html.dark) .meta-value { color:#ffeaf2; }
+  .meta-note { font-size:13px; }
+  .time-value { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums; color:#b9567e; letter-spacing:.02em; }
+  .live-pulse { width:7px; height:7px; margin-right:4px; border-radius:50%; background:#77c99d; box-shadow:0 0 0 3px #77c99d20; }
+  .profile-footer { display:flex; align-items:center; gap:7px; padding:1px 2px 0; color:#a18a99; font-size:.65rem; }
+  .footer-spark { color:#d8779a; font-size:14px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  @media(max-width:720px) { .profileCard { gap:.9rem; padding:1rem; }.avatar-wrapper { flex-basis:66px; width:66px; height:66px; }.name { font-size:1.35rem; } }
+  @media(prefers-reduced-motion:reduce) { .profileCard { transition:none; }.profileCard:hover{transform:none}.glow-ring{animation:none} }
 </style>
 
 <script>
   const timeEl = document.getElementById('local-time');
-
   function updateTime() {
     if (!timeEl) return;
-    const now = new Date().toLocaleTimeString('en-IN', {
-      timeZone: 'Asia/Kolkata',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
+    const now = new Date().toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit' });
     timeEl.textContent = now;
   }
-
   updateTime();
   setInterval(updateTime, 1000);
 </script>
+
