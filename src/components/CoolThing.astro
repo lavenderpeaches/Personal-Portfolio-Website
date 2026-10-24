@@ -30,7 +30,10 @@
       </div>
     </div>
 
-    <p class="message" id="timer-message">You just arrived. Welcome!</p>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>VISITOR VIBES</span><span id="timer-progress-label">just arrived</span></div>
+      <div class="progress-track" role="progressbar" aria-label="Visit progress" aria-valuemin="0" aria-valuemax="300" aria-valuenow="0"><span class="progress-fill" id="timer-progress"></span></div>
+    </div>
   </div>
 </div>
 
@@ -40,18 +43,11 @@
   const hoursEl = document.getElementById('hours');
   const minutesEl = document.getElementById('minutes');
   const secondsEl = document.getElementById('seconds');
-  const messageEl = document.getElementById('timer-message');
+  const progressEl = document.getElementById('timer-progress');
+  const progressLabelEl = document.getElementById('timer-progress-label');
+  const progressTrack = document.querySelector('.progress-track');
 
   const pad = (n: number) => String(n).padStart(2, '0');
-
-  const messages: [number, string][] = [
-    [0, 'You just arrived. Welcome!'],
-    [10, 'Still here? Nice, make yourself comfortable.'],
-    [30, 'Half a minute in. You must like scrolling.'],
-    [60, 'A full minute! You are officially a visitor.'],
-    [180, 'Three minutes. Have you checked the Minecraft section?'],
-    [300, 'Five minutes?! Just hire me already ;-;'],
-  ];
 
   function tick() {
     // Derive from timestamps so it stays accurate even if the tab is throttled
@@ -65,12 +61,10 @@
     if (minutesEl) minutesEl.textContent = pad(m);
     if (secondsEl) secondsEl.textContent = pad(s);
 
-    if (messageEl) {
-      const current = [...messages].reverse().find(([t]) => elapsed >= t);
-      if (current && messageEl.textContent !== current[1]) {
-        messageEl.textContent = current[1];
-      }
-    }
+    const progress = Math.min((elapsed / 300) * 100, 100);
+    if (progressEl) (progressEl as HTMLElement).style.width = `${progress}%`;
+    if (progressTrack) progressTrack.setAttribute('aria-valuenow', String(Math.min(elapsed, 300)));
+    if (progressLabelEl) progressLabelEl.textContent = elapsed >= 300 ? 'five minutes in!' : elapsed >= 60 ? 'settling in' : 'just arrived';
   }
 
   tick();
@@ -178,14 +172,14 @@
       opacity: 0.25;
     }
   }
-
-  .message {
-    margin: 0;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: #94a3b8;
-    min-height: 2.5em; /* avoids layout shift when the message text changes */
-  }
+  .progress-wrap { width:min(100%,310px); display:grid; gap:.55rem; margin-top:1.8rem; padding:.8rem .9rem; border:1px solid #f0dbe4; border-radius:12px; background:linear-gradient(135deg,#fff3f7,#fffafd); box-shadow:0 4px 12px #aa55700b; }
+  .progress-label { display:flex; justify-content:space-between; gap:1rem; color:#ad8fa0; font-size:.56rem; font-weight:800; letter-spacing:.1em; }
+  .progress-label span:last-child { color:#c56e91; font-weight:650; letter-spacing:0; text-transform:none; }
+  .progress-track { height:6px; overflow:hidden; border-radius:99px; background:#f5e5ec; border:1px solid #f0dce4; }
+  .progress-fill { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,#f2b4ca,#d96f9c); transition:width .5s ease; }
+  :global(html.dark) .progress-wrap { background:linear-gradient(135deg,#3d2936,#302331); border-color:#55394a; box-shadow:none; }
+  :global(html.dark) .progress-track { background:#493544; border-color:#5b4052; }
+  @media(prefers-reduced-motion:reduce) { .progress-fill { transition:none; } }
 
   @media (prefers-reduced-motion: reduce) {
     .colon {
